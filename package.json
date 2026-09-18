@@ -68,10 +68,11 @@
 				"group": "homepage"
 			},
 			"lead_story": {
-				"type": "boolean",
-				"default": true,
+				"type": "select",
+				"options": ["Newest post", "Featured post", "Off"],
+				"default": "Newest post",
 				"group": "homepage",
-				"description": "Give the newest post a larger, image-led slot at the top of the feed."
+				"description": "Which post gets the larger, image-led slot at the top of the feed."
 			},
 			"title_font": {
 				"type": "select",

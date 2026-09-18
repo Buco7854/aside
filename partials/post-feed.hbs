@@ -1,0 +1,22 @@
+{{!--
+    The paginated feed.
+
+    Params:
+      lead_first  render the first post in the larger, image-led slot
+      skip_id     omit one post, when it is already pinned above the feed
+--}}
+{{#foreach posts}}
+    {{#match id ../skip_id}}
+        {{!-- already shown as the lead story --}}
+    {{else}}
+        {{#if @first}}
+            {{#if ../lead_first}}
+                {{> "post-card" lead=true}}
+            {{else}}
+                {{> "post-card"}}
+            {{/if}}
+        {{else}}
+            {{> "post-card"}}
+        {{/if}}
+    {{/match}}
+{{/foreach}}

@@ -31,21 +31,29 @@ the default.hbs template. --}}
     <section class="post-feed-section">
         {{#if posts}}
             <div class="post-feed">
-                {{#foreach posts}}
-                    {{#if @first}}
-                        {{#unless ../pagination.prev}}
-                            {{#if @custom.lead_story}}
+                {{#if pagination.prev}}
+                    {{!-- Later pages are a plain grid; the lead slot belongs to page one --}}
+                    {{> "post-feed" lead_first=false}}
+                {{else match @custom.lead_story "Featured post"}}
+                    {{!-- Pin the newest post flagged "featured" in the editor, and
+                    drop it from the feed below so it is not shown twice --}}
+                    {{#get "posts" filter="featured:true" limit="1" include="authors,tags" as |pinned|}}
+                        {{#if pinned}}
+                            {{#foreach pinned}}
                                 {{> "post-card" lead=true}}
-                            {{else}}
-                                {{> "post-card"}}
-                            {{/if}}
+                            {{/foreach}}
+                            {{!-- Inside {{#get}} the context's `posts` is the
+                            featured query, so hand the page's own feed in --}}
+                            {{> "post-feed" posts=../posts lead_first=false skip_id=pinned.[0].id}}
                         {{else}}
-                            {{> "post-card"}}
-                        {{/unless}}
-                    {{else}}
-                        {{> "post-card"}}
-                    {{/if}}
-                {{/foreach}}
+                            {{> "post-feed" posts=../posts lead_first=true}}
+                        {{/if}}
+                    {{/get}}
+                {{else match @custom.lead_story "Newest post"}}
+                    {{> "post-feed" lead_first=true}}
+                {{else}}
+                    {{> "post-feed" lead_first=false}}
+                {{/if}}
             </div>
         {{else}}
             <div class="notice">

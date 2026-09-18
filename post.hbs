@@ -62,7 +62,7 @@
 
     {{!-- Two more posts, excluding this one. The {{#get}} filter only takes
     simple paths, so keep it to id:-{{id}}. Renders nothing on a one-post site. --}}
-    {{#get "posts" filter="id:-{{id}}" limit="2" as |related|}}
+    {{#get "posts" filter="id:-{{id}}" limit="2" include="authors,tags" as |related|}}
         {{#if related}}
             <aside class="read-next">
                 <hr class="rule" />

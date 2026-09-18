@@ -60,6 +60,23 @@ For an index of *all* tags there are two pieces:
 The homepage also shows the twelve most used tags under the feed. Turn that off
 with the **Show topics** setting.
 
+## Featured posts
+
+"Featured" is a flag Ghost puts on every post and page — the star in the post
+list, or **Feature this post** in the editor's settings panel. Ghost itself does
+nothing with it; themes decide what it means.
+
+Here it does two things:
+
+- Any featured post carries a small **Featured** badge in the feed and archives.
+- Set **Lead story → Featured post** and the newest featured post is pinned to
+  the top of the homepage in the large, image-led slot, and skipped further down
+  so it is not shown twice. With no featured post, the newest post leads instead.
+
+Pages have the same flag, but nothing lists pages by date, so it has no effect
+there — a featured page is only meaningful if you query it yourself, e.g.
+`{{#get "pages" filter="featured:true"}}`.
+
 ## Theme settings
 
 Editable in Ghost Admin → Design → Site-wide, no code needed:
@@ -67,7 +84,7 @@ Editable in Ghost Admin → Design → Site-wide, no code needed:
 | Setting             | Options                          | Default        |
 | ------------------- | -------------------------------- | -------------- |
 | Homepage header     | Statement / Compact / Hidden     | Statement      |
-| Lead story          | on / off                         | on             |
+| Lead story          | Newest post / Featured post / Off | Newest post   |
 | Show topics         | on / off                         | on             |
 | Title font          | Elegant serif / Modern sans-serif| Elegant serif  |
 | Show reading time   | on / off                         | on             |
