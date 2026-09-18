@@ -7,9 +7,9 @@
             <a href="{{url}}">{{title}}</a>
             {{#if featured}}<span class="post-card__badge">{{t "Featured"}}</span>{{/if}}
             {{#has tag="#sensitive"}}
-                {{#if @custom.sensitive_content}}
+                {{^match @custom.sensitive_content "Off"}}
                     <span class="post-card__badge post-card__badge--warning">{{t "Sensitive"}}</span>
-                {{/if}}
+                {{/match}}
             {{/has}}
         </h3>
 

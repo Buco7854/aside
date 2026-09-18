@@ -20,7 +20,10 @@
 	],
 	"gpm": {
 		"type": "theme",
-		"categories": ["Minimal", "Blog"]
+		"categories": [
+			"Minimal",
+			"Blog"
+		]
 	},
 	"screenshots": {
 		"desktop": "assets/screenshot-desktop.jpg",
@@ -48,35 +51,60 @@
 		"postcss-cli": "11.0.1",
 		"postcss-import": "16.1.1"
 	},
-	"browserslist": ["defaults"],
+	"browserslist": [
+		"defaults"
+	],
 	"config": {
 		"posts_per_page": 12,
 		"image_sizes": {
-			"xxs": { "width": 30 },
-			"xs": { "width": 100 },
-			"s": { "width": 400 },
-			"m": { "width": 750 },
-			"l": { "width": 1200 },
-			"xl": { "width": 2000 }
+			"xxs": {
+				"width": 30
+			},
+			"xs": {
+				"width": 100
+			},
+			"s": {
+				"width": 400
+			},
+			"m": {
+				"width": 750
+			},
+			"l": {
+				"width": 1200
+			},
+			"xl": {
+				"width": 2000
+			}
 		},
 		"card_assets": true,
 		"custom": {
 			"homepage_header": {
 				"type": "select",
-				"options": ["Statement", "Compact", "Hidden"],
+				"options": [
+					"Statement",
+					"Compact",
+					"Hidden"
+				],
 				"default": "Statement",
 				"group": "homepage"
 			},
 			"lead_story": {
 				"type": "select",
-				"options": ["Newest post", "Featured post", "Off"],
+				"options": [
+					"Newest post",
+					"Featured post",
+					"Off"
+				],
 				"default": "Newest post",
 				"group": "homepage",
 				"description": "Which post gets the larger, image-led slot at the top of the feed."
 			},
 			"title_font": {
 				"type": "select",
-				"options": ["Elegant serif", "Modern sans-serif"],
+				"options": [
+					"Elegant serif",
+					"Modern sans-serif"
+				],
 				"default": "Elegant serif"
 			},
 			"show_topics": {
@@ -91,16 +119,21 @@
 				"description": "Show an estimated reading time next to the date."
 			},
 			"sensitive_content": {
-				"type": "boolean",
-				"default": true,
+				"type": "select",
+				"options": [
+					"Images only",
+					"Whole post",
+					"Off"
+				],
+				"default": "Images only",
 				"group": "post",
-				"description": "Blur posts tagged with the internal tag #sensitive until the reader chooses to continue."
+				"description": "What to hold back on posts tagged #sensitive, until the reader asks."
 			},
 			"sensitive_text": {
 				"type": "text",
 				"default": "",
 				"group": "post",
-				"description": "The warning shown over a sensitive post. Leave empty for the default wording."
+				"description": "The content note shown on a sensitive post. Leave empty for the default wording."
 			},
 			"age_gate": {
 				"type": "boolean",

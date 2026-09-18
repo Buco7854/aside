@@ -24,9 +24,14 @@
                 if (theme === "light" || theme === "dark") {
                     document.documentElement.classList.add(theme);
                 }
-                // A reader who has already consented should never see a blur.
-                if (localStorage.getItem("aside-consent") === "1") {
-                    document.documentElement.classList.add("has-consent");
+                // Two separate answers: confirming your age is not the same as
+                // asking to see graphic images. Applied here so neither the
+                // gate nor the veil flashes for someone who has answered.
+                if (localStorage.getItem("aside-age-ok") === "1") {
+                    document.documentElement.classList.add("has-age-consent");
+                }
+                if (localStorage.getItem("aside-sensitive-ok") === "1") {
+                    document.documentElement.classList.add("has-sensitive-consent");
                 }
             } catch (e) {
                 /* Storage can be unavailable; fall back to the OS preference. */

@@ -6,7 +6,10 @@
  * scripts (search, members, comments) load themselves through {{ghost_head}}.
  */
 const STORAGE_KEY = "aside-theme";
-const CONSENT_KEY = "aside-consent";
+const CONSENT = {
+	age: { key: "aside-age-ok", className: "has-age-consent" },
+	sensitive: { key: "aside-sensitive-ok", className: "has-sensitive-consent" },
+};
 const CANVAS_STYLE_ID = "aside-comments-canvas";
 const root = document.documentElement;
 
@@ -80,16 +83,30 @@ function watchForConsent() {
 	const gate = document.querySelector("[data-age-gate]");
 	if (gate) {
 		document.documentElement.classList.add("age-gate-open");
-		gate.querySelector("button")?.focus();
+		// Focus the panel rather than the button: screen readers land in the
+		// right place without a focus ring appearing on a button nobody clicked.
+		gate.querySelector("[data-age-gate-panel]")?.focus({ preventScroll: true });
+	}
+
+	for (const button of document.querySelectorAll("[data-warning-decline]")) {
+		button.addEventListener("click", () => {
+			if (window.history.length > 1) {
+				window.history.back();
+			} else {
+				window.close(); // Only works for script-opened tabs; harmless otherwise.
+			}
+		});
 	}
 
 	for (const button of document.querySelectorAll("[data-warning-accept]")) {
 		button.addEventListener("click", () => {
-			document.documentElement.classList.add("has-consent");
+			const consent = CONSENT[button.dataset.warningAccept] ?? CONSENT.sensitive;
+
+			document.documentElement.classList.add(consent.className);
 			document.documentElement.classList.remove("age-gate-open");
 
 			try {
-				localStorage.setItem(CONSENT_KEY, "1");
+				localStorage.setItem(consent.key, "1");
 			} catch (error) {
 				/* The answer will be asked for again on the next visit. */
 			}

@@ -80,27 +80,37 @@ there — a featured page is only meaningful if you query it yourself, e.g.
 ## Content warnings and the age gate
 
 Two separate things, both opt-in, and both **courtesy notices rather than access
-control** — the post is in the page either way, so anyone determined can read
-the HTML. For genuine gating, make the post members-only in Ghost.
+control** — the post is in the page either way, so anyone determined can read the
+HTML. For genuine gating, make the post members-only in Ghost.
 
-**Per-post warning.** Add the internal tag `#sensitive` to a post (internal tags
-start with `#`, stay hidden from readers, and are what Ghost provides for exactly
-this kind of theme logic). The post then shows a panel above the article, with
-its feature image and body blurred and click-blocked until the reader chooses to
-continue. Title, date and public tags stay readable, so nobody has to guess what
-they are opening. In feeds and archives the card is labelled *Sensitive* and its
-image is veiled.
+**Per-post content note.** Add the internal tag `#sensitive` to a post (internal
+tags start with `#` and stay hidden from readers — they are what Ghost provides
+for theme logic like this). The post then carries a short note above the title:
 
-Change the wording under **Sensitive content warning** in theme settings, or turn
-the whole behaviour off there.
+> **CONTENT NOTE**
+> *The images in this post may be difficult to look at.*
+> Show the images →
 
-**Site-wide age gate.** Turn on **Age gate** and every first-time visitor gets a
-full-page confirmation before they see anything, with your own wording. While it
+What the note holds back depends on the **Sensitive content** setting:
+
+| Setting       | Effect                                                            |
+| ------------- | ----------------------------------------------------------------- |
+| `Images only` | The writing reads normally; every image is veiled until asked for  |
+| `Whole post`  | The body is held back too — hidden rather than blurred             |
+| `Off`         | The tag does nothing                                               |
+
+The title, byline and public tags always stay readable, so nobody has to guess
+what they are opening, and cards in feeds are labelled *Sensitive* with a veiled
+image. Reword the note under **Sensitive content note** in theme settings.
+
+**Site-wide age gate.** Turn on **Age gate** and every first-time visitor is
+asked to confirm their age before they see anything, in your own words. While it
 is on, the theme also emits `<meta name="rating" content="adult">` for crawlers
 and parental filters.
 
-Both remember the answer in `localStorage` under `aside-consent`, and one answer
-covers both — a reader who has confirmed their age is not asked again per post.
+The two answers are **kept apart**, in `localStorage` under `aside-age-ok` and
+`aside-sensitive-ok`: confirming your age is not the same as asking to see
+graphic pictures, so a reader who passes the gate still gets the content note.
 
 ## Theme settings
 
@@ -111,7 +121,7 @@ Editable in Ghost Admin → Design → Site-wide, no code needed:
 | Homepage header     | Statement / Compact / Hidden     | Statement      |
 | Lead story          | Newest post / Featured post / Off | Newest post   |
 | Show topics         | on / off                         | on             |
-| Sensitive content warning | on / off                   | on             |
+| Sensitive content   | Images only / Whole post / Off    | Images only    |
 | Age gate            | on / off                         | off            |
 | Title font          | Elegant serif / Modern sans-serif| Elegant serif  |
 | Show reading time   | on / off                         | on             |

@@ -1,24 +1,23 @@
 {{!--
-    Optional site-wide gate, shown on the first visit when "Age gate" is on.
+    Optional site-wide gate, shown once per device on the first visit.
     It is a courtesy notice, not access control — see the README.
 --}}
 {{#if @custom.age_gate}}
-    <div class="age-gate" data-age-gate role="alertdialog" aria-labelledby="age-gate-title" aria-modal="true">
-        <div class="age-gate__panel">
-            <p class="warning__mark" aria-hidden="true">&mdash;</p>
-            <h2 class="warning__title" id="age-gate-title">{{@site.title}}</h2>
-            <p class="warning__text">
+    <div class="age-gate" data-age-gate role="dialog" aria-modal="true" aria-labelledby="age-gate-title">
+        <div class="age-gate__panel" tabindex="-1" data-age-gate-panel>
+            <p class="eyebrow" id="age-gate-title">{{t "Before you start"}}</p>
+            <p class="age-gate__text">
                 {{#if @custom.age_gate_text}}
                     {{@custom.age_gate_text}}
                 {{else}}
-                    {{t "This site publishes work intended for an adult audience."}}
+                    {{t "Some of the work published here is meant for an adult audience."}}
                 {{/if}}
             </p>
-            <div class="warning__actions">
-                <button class="button" type="button" data-warning-accept>{{t "I am over 18"}}</button>
-                <a class="button button--ghost" href="https://www.google.com/">{{t "Take me back"}}</a>
+            <div class="age-gate__actions">
+                <button class="button" type="button" data-warning-accept="age">{{t "I am 18 or older"}}</button>
+                <button class="button button--ghost" type="button" data-warning-decline>{{t "Not now"}}</button>
             </div>
-            <p class="warning__note">{{t "Your choice is remembered on this device."}}</p>
+            <p class="age-gate__note">{{t "We keep your answer on this device, so this only appears once."}}</p>
         </div>
     </div>
 {{/if}}
