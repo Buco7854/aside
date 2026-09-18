@@ -1,0 +1,27 @@
+{{!< default}}
+
+{{!--
+    A custom template: Ghost lists it as "Tags" in the editor sidebar, so any
+    page can use it. Create a page (called Topics, Tags, Index — whatever you
+    like), pick this template, and it renders the page's own text followed by
+    every tag on the site.
+--}}
+
+<div class="container container--prose">
+
+    {{#post}}
+        <header class="archive-header">
+            <p class="eyebrow">{{t "Index"}}</p>
+            <h1 class="archive-header__title">{{title}}</h1>
+        </header>
+
+        {{#if html}}
+            <section class="content gh-content tags-page__intro">
+                {{content}}
+            </section>
+        {{/if}}
+    {{/post}}
+
+    {{> "tag-cloud" limit="all"}}
+
+</div>

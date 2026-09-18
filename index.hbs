@@ -58,4 +58,15 @@ the default.hbs template. --}}
 
     {{> "pagination"}}
 
+    {{#is "home"}}
+        {{#if @custom.show_topics}}
+            <section class="topics">
+                <div class="section-header">
+                    <h2>{{t "Topics"}}</h2>
+                </div>
+                {{> "tag-cloud" limit="12"}}
+            </section>
+        {{/if}}
+    {{/is}}
+
 </div>

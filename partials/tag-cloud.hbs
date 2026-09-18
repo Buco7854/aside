@@ -1,0 +1,24 @@
+{{!--
+    Every public tag, with the number of posts in each.
+
+    Callers pass a limit — "all" for the tags page, a number for a teaser:
+
+        {{> "tag-cloud" limit="all"}}
+        {{> "tag-cloud" limit="12"}}
+--}}
+{{#get "tags" limit=limit include="count.posts" order="count.posts desc, name asc" filter="visibility:public"}}
+    {{#if tags}}
+        <ul class="tag-cloud">
+            {{#foreach tags}}
+                <li>
+                    <a href="{{url}}">
+                        {{name}}
+                        <span class="tag-cloud__count">{{count.posts}}</span>
+                    </a>
+                </li>
+            {{/foreach}}
+        </ul>
+    {{else}}
+        <p class="lede">{{t "No tags yet."}}</p>
+    {{/if}}
+{{/get}}

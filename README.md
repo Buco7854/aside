@@ -30,6 +30,35 @@ dark, and the em dash as a house motif. Built for sites where the writing is the
 | `author.hbs`     | Author archive with bio and links                            |
 | `error-404.hbs`  | Not found                                                    |
 | `error.hbs`      | Other errors                                                 |
+| `custom-tags.hbs`| Optional page template listing every tag ("Tags" in the editor)|
+
+## Tags
+
+Ghost generates a tag archive for every tag, and the theme renders it with
+`tag.hbs`: a dated list of every post carrying that tag, at `/tag/:slug/`.
+
+For an index of *all* tags there are two pieces:
+
+- **`partials/tag-cloud.hbs`** — a reusable component listing public tags with
+  post counts, most used first. Drop it anywhere and pass a limit:
+
+  ```hbs
+  {{> "tag-cloud" limit="all"}}
+  {{> "tag-cloud" limit="12"}}
+  ```
+
+- **`custom-tags.hbs`** — a page template built on that partial. In Ghost it
+  appears as **Tags** in the editor's template picker, so:
+
+  1. Create a page (call it Topics, Tags, Index — whatever suits).
+  2. In the editor sidebar, open the settings panel and set **Template → Tags**.
+  3. Publish, then add it to your navigation under Settings → Navigation.
+
+  Whatever you write in the page body renders above the list, so the page can
+  introduce itself.
+
+The homepage also shows the twelve most used tags under the feed. Turn that off
+with the **Show topics** setting.
 
 ## Theme settings
 
@@ -39,6 +68,7 @@ Editable in Ghost Admin → Design → Site-wide, no code needed:
 | ------------------- | -------------------------------- | -------------- |
 | Homepage header     | Statement / Compact / Hidden     | Statement      |
 | Lead story          | on / off                         | on             |
+| Show topics         | on / off                         | on             |
 | Title font          | Elegant serif / Modern sans-serif| Elegant serif  |
 | Show reading time   | on / off                         | on             |
 | Footer note         | free text                        | empty          |

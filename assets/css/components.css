@@ -516,3 +516,47 @@ html.dark .theme-toggle__icon--to-dark {
 .article__mark {
 	color: var(--color-brand);
 }
+
+/* Tag cloud: every tag, with its post count */
+.tag-cloud {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-2);
+	list-style: none;
+}
+
+.tag-cloud a {
+	display: inline-flex;
+	align-items: baseline;
+	gap: var(--space-2);
+	padding: var(--space-2) var(--space-4);
+	border: 1px solid var(--color-border);
+	border-radius: 999px;
+	color: var(--color-text);
+	font-size: var(--text-sm);
+	transition:
+		border-color var(--transition-fast),
+		background var(--transition-fast),
+		color var(--transition-fast);
+}
+
+.tag-cloud a:hover {
+	border-color: transparent;
+	background: var(--color-brand-soft);
+	color: var(--color-brand);
+}
+
+.tag-cloud__count {
+	color: var(--color-muted);
+	font-size: var(--text-xs);
+	font-variant-numeric: tabular-nums;
+}
+
+.topics {
+	padding-block: var(--space-12) var(--space-4);
+}
+
+.tags-page__intro {
+	display: block;
+	margin-bottom: var(--space-12);
+}

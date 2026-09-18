@@ -78,6 +78,12 @@
 				"options": ["Elegant serif", "Modern sans-serif"],
 				"default": "Elegant serif"
 			},
+			"show_topics": {
+				"type": "boolean",
+				"default": true,
+				"group": "homepage",
+				"description": "Show a row of the most used tags under the homepage feed."
+			},
 			"show_reading_time": {
 				"type": "boolean",
 				"default": true,
