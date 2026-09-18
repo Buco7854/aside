@@ -96,7 +96,7 @@ What the note holds back depends on the **Sensitive content** setting:
 | Setting       | Effect                                                            |
 | ------------- | ----------------------------------------------------------------- |
 | `Images only` | The writing reads normally; every image is veiled until asked for  |
-| `Whole post`  | The body is held back too — hidden rather than blurred             |
+| `Whole post`  | The writing is veiled too, paragraph by paragraph                  |
 | `Off`         | The tag does nothing                                               |
 
 The title, byline and public tags always stay readable, so nobody has to guess

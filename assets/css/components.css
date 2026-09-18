@@ -609,35 +609,51 @@ html.dark .theme-toggle__icon--to-dark {
 /* ------------------------------------------------- content warnings ------ */
 
 /*
-  A veiled post keeps its words: only the pictures are held back, unless the
-  setting asks for the whole post. `html.has-sensitive-consent` is set before
-  first paint for anyone who has already answered, so they never see the veil.
+  Veiling.
+
+  A blur bleeds outside the element it is applied to, so every veiled picture is
+  clipped by its frame and scaled up slightly to cover the soft edge — otherwise
+  the haze spills over the surrounding page.
+
+  In "Whole post" the text is blurred too, but element by element rather than as
+  one block: blurring the container smears the whole column into a grey field,
+  where blurring each paragraph still reads as text you cannot quite make out.
+
+  `html.has-sensitive-consent` is set before first paint for anyone who has
+  already answered, so they never see any of this.
 */
+.article--sensitive .article__feature-image,
+.article--sensitive .content :is(figure, .kg-card, .kg-image-card, .kg-gallery-card),
+.post-card--sensitive .post-card__media {
+	overflow: hidden;
+	border-radius: var(--radius-lg);
+}
+
 .article--sensitive .article__feature-image img,
 .article--sensitive .content img,
+.article--sensitive .content video,
 .post-card--sensitive .post-card__media img {
-	filter: blur(28px);
-	transform: scale(1.04); /* hides the soft edge the blur leaves */
+	filter: blur(24px);
+	transform: scale(1.08);
 	pointer-events: none;
 	user-select: none;
 }
 
-/* "Whole post" also holds back the writing — hidden, not smeared. */
-.article--sensitive-all .content {
-	display: none;
+.article--sensitive-all .content > :is(p, h2, h3, h4, h5, h6, ul, ol, dl, blockquote, pre, table) {
+	filter: blur(6px);
+	pointer-events: none;
+	user-select: none;
 }
 
 html.has-sensitive-consent .article--sensitive .article__feature-image img,
 html.has-sensitive-consent .article--sensitive .content img,
-html.has-sensitive-consent .post-card--sensitive .post-card__media img {
+html.has-sensitive-consent .article--sensitive .content video,
+html.has-sensitive-consent .post-card--sensitive .post-card__media img,
+html.has-sensitive-consent .article--sensitive-all .content > * {
 	filter: none;
 	transform: none;
 	pointer-events: auto;
 	user-select: auto;
-}
-
-html.has-sensitive-consent .article--sensitive-all .content {
-	display: contents;
 }
 
 .post-card__badge--warning {
