@@ -80,8 +80,13 @@ function syncCommentsTheme() {
  * until the reader answers. Treat it as a warning, not as access control.
  */
 function watchForConsent() {
+	// The gate stays in the markup after it is answered — CSS hides it — so the
+	// scroll lock has to check the answer, not just the element. Without this
+	// the page is unscrollable on every later visit.
 	const gate = document.querySelector("[data-age-gate]");
-	if (gate) {
+	const answered = document.documentElement.classList.contains("has-age-consent");
+
+	if (gate && !answered) {
 		document.documentElement.classList.add("age-gate-open");
 		// Focus the panel rather than the button: screen readers land in the
 		// right place without a focus ring appearing on a button nobody clicked.

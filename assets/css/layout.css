@@ -192,7 +192,16 @@
 	}
 
 	.site-tools {
+		gap: var(--space-2);
 		margin-inline-start: auto;
+	}
+
+	.site-header__inner {
+		gap: var(--space-2);
+	}
+
+	.wordmark {
+		font-size: var(--text-base);
 	}
 
 	.site-footer__grid {

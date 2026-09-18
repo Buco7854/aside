@@ -60,6 +60,23 @@
 	color: var(--color-text-secondary);
 }
 
+@media (max-width: 34rem) {
+	/* Once the line wraps, the separators land at the start of a line and read
+	   as typos; space does the same job on a narrow screen. */
+	.post-meta {
+		column-gap: var(--space-3);
+	}
+
+	.post-meta > * + *::before {
+		content: none;
+	}
+
+	/* The byline belongs on the article, not on a card in a phone-width feed. */
+	.post-card .post-meta__author {
+		display: none;
+	}
+}
+
 .post-meta__author a {
 	color: inherit;
 }
@@ -666,8 +683,11 @@ html.has-sensitive-consent .article--sensitive-all .content > * {
 	display: grid;
 	justify-items: start;
 	gap: var(--space-3);
-	max-width: var(--content-width);
+	/* Sits outside the article's grid, so it carries the gutter itself and
+	   still lines up with the reading column. */
+	max-width: calc(var(--content-width) + var(--gutter) * 2);
 	margin: 0 auto var(--space-10);
+	padding-inline: var(--gutter);
 }
 
 .content-note .rule {
