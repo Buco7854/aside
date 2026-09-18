@@ -1,16 +1,40 @@
-{{!-- Portal signup. Only rendered when memberships are switched on in Ghost. --}}
+{{!--
+    Inline signup. Unlike Portal's modal, this form belongs to the theme:
+    Ghost's members script posts it and toggles `loading`, `success` and
+    `error` classes on the <form>, which the CSS below reacts to.
+
+    Only rendered when memberships are switched on in Ghost.
+--}}
 {{#if @site.members_enabled}}
     {{#unless @member}}
         <aside class="prompt">
             <h2>{{t "Get new posts by email"}}</h2>
             <p>{{#if @site.description}}{{@site.description}}{{else}}{{t "No spam. Unsubscribe any time."}}{{/if}}</p>
+
             {{#unless @site.members_invite_only}}
-                <form data-members-form="signup">
+                <form class="prompt__form" data-members-form="signup">
                     <label class="sr-only" for="subscribe-email">{{t "Your email address"}}</label>
-                    <input id="subscribe-email" type="email" name="email" data-members-email placeholder="you@example.com" required />
-                    <button class="button" type="submit">{{t "Subscribe"}}</button>
+                    <input
+                        id="subscribe-email"
+                        type="email"
+                        name="email"
+                        data-members-email
+                        placeholder="you@example.com"
+                        aria-describedby="subscribe-message"
+                        required
+                    />
+                    <button class="button" type="submit">
+                        <span class="prompt__label">{{t "Subscribe"}}</span>
+                        <span class="prompt__label prompt__label--loading">{{t "Sending…"}}</span>
+                    </button>
+
+                    <p class="prompt__message prompt__message--success" id="subscribe-message" role="status">
+                        {{t "Check your inbox — there is a link waiting to confirm your subscription."}}
+                    </p>
+                    <p class="prompt__message prompt__message--error" data-members-error role="alert"></p>
                 </form>
             {{else}}
+                <p class="prompt__note">{{t "This publication is invite-only."}}</p>
                 <a class="button" href="#/portal/signin">{{t "Sign in"}}</a>
             {{/unless}}
         </aside>

@@ -345,6 +345,51 @@
 	box-shadow: 0 0 0 3px var(--color-brand-ring);
 }
 
+.prompt__note {
+	color: var(--color-muted);
+}
+
+/* Ghost's members script toggles these classes on the form as it submits. */
+.prompt__message {
+	flex-basis: 100%;
+	margin-top: var(--space-1);
+	font-size: var(--text-sm);
+}
+
+.prompt__message--success {
+	color: var(--color-text-secondary);
+}
+
+.prompt__message--error {
+	color: var(--color-brand);
+}
+
+.prompt__form:not(.success) .prompt__message--success,
+.prompt__form:not(.error) .prompt__message--error {
+	display: none;
+}
+
+.prompt__form.success input[type="email"],
+.prompt__form.success .button {
+	display: none;
+}
+
+.prompt__form .prompt__label--loading {
+	display: none;
+}
+
+.prompt__form.loading .prompt__label {
+	display: none;
+}
+
+.prompt__form.loading .prompt__label--loading {
+	display: inline;
+}
+
+.prompt__form.loading .button {
+	cursor: progress;
+}
+
 /* Empty states and error pages */
 .notice {
 	display: grid;
