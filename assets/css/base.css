@@ -104,7 +104,33 @@ samp {
 	color: var(--color-heading);
 }
 
+/*
+  Navigation.
+
+  Every page is still served by Ghost — this is not a single-page app — but the
+  browser cross-fades between documents instead of flashing white, which is most
+  of what an SPA buys you on a reading site. Browsers without it just navigate.
+
+  To carry an element across the change, give it a unique view-transition-name:
+
+      .article__title { view-transition-name: article-title; }
+*/
+@view-transition {
+	navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: 180ms;
+}
+
 @media (prefers-reduced-motion: reduce) {
+	::view-transition-group(*),
+	::view-transition-old(*),
+	::view-transition-new(*) {
+		animation: none !important;
+	}
+
 	html {
 		scroll-behavior: auto;
 	}

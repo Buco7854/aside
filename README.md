@@ -34,6 +34,20 @@ dark, and the em dash as a house motif. Built for sites where the writing is the
 | `error.hbs`      | Other errors                                                 |
 | `custom-tags.hbs`| Optional page template listing every tag ("Tags" in the editor)|
 
+## Navigation feel
+
+The theme is server-rendered — every click is a real navigation — but two
+browser features make it behave like an app without any of the machinery:
+
+- `@view-transition { navigation: auto }` cross-fades between documents instead
+  of flashing white. To carry an element across the change, give it a unique
+  `view-transition-name`; the CSS block in `assets/css/base.css` shows how.
+- A speculation-rules block prefetches a page once a visitor hovers or starts
+  pressing a link, so the click lands on a document already in cache.
+
+Both degrade silently: a browser without them simply navigates as usual. It is
+deliberately *not* a single-page app — see the note at the end of this file.
+
 ## Tags
 
 Ghost generates a tag archive for every tag, and the theme renders it with
@@ -192,6 +206,20 @@ with the sources.
   switched mid-page. Without that, a dark page shows a white panel where the comments are.
 - **Reading time** comes from Ghost's `{{reading_time}}` helper and can be hidden in theme settings.
 - **Search** is Ghost's own (Sodo Search); the header button carries `data-ghost-search`.
+
+## Why not a single-page app
+
+Everything Ghost injects into a theme binds once, when the document loads:
+Portal (members), Sodo Search, the comments embed, Koenig's card scripts for
+galleries and toggles, and whatever analytics you add. Swapping pages in place
+with Turbo, swup or similar means re-initialising all of them on every
+navigation, and some — the comments embed in particular — have no re-init API:
+re-injecting their script does not remount them.
+
+The view transitions and prefetching above give most of the perceived speed for
+none of that risk. If you do want true client-side navigation, the honest route
+is a headless front end on Ghost's Content API, at the cost of the Portal,
+search and comments integration this theme gets for free.
 
 ## Credits
 

@@ -39,6 +39,26 @@
         })();
     </script>
 
+    {{!-- Fetch a page once a visitor looks likely to open it, so the click lands
+    on something already in cache. Prefetch rather than prerender: prerendering
+    runs the next page's scripts, which would skew analytics and member state. --}}
+    <script type="speculationrules">
+        {
+            "prefetch": [
+                {
+                    "where": {
+                        "and": [
+                            { "href_matches": "/*" },
+                            { "not": { "href_matches": "/ghost/*" } },
+                            { "not": { "selector_matches": "[rel~=nofollow]" } }
+                        ]
+                    },
+                    "eagerness": "moderate"
+                }
+            ]
+        }
+    </script>
+
     {{!-- Outputs SEO meta, structured data and code injection; keep it last --}}
     {{ghost_head}}
 
