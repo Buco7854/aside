@@ -6,6 +6,11 @@
         <h3 class="post-row__title">
             <a href="{{url}}">{{title}}</a>
             {{#if featured}}<span class="post-card__badge">{{t "Featured"}}</span>{{/if}}
+            {{#has tag="#sensitive"}}
+                {{#if @custom.sensitive_content}}
+                    <span class="post-card__badge post-card__badge--warning">{{t "Sensitive"}}</span>
+                {{/if}}
+            {{/has}}
         </h3>
 
         {{#if excerpt}}

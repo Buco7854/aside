@@ -6,6 +6,7 @@
  * scripts (search, members, comments) load themselves through {{ghost_head}}.
  */
 const STORAGE_KEY = "aside-theme";
+const CONSENT_KEY = "aside-consent";
 const CANVAS_STYLE_ID = "aside-comments-canvas";
 const root = document.documentElement;
 
@@ -69,6 +70,33 @@ function syncCommentsTheme() {
 	}
 }
 
+/**
+ * Content warnings and the age gate.
+ *
+ * Both are a courtesy: the post is in the page either way, blurred and inert
+ * until the reader answers. Treat it as a warning, not as access control.
+ */
+function watchForConsent() {
+	const gate = document.querySelector("[data-age-gate]");
+	if (gate) {
+		document.documentElement.classList.add("age-gate-open");
+		gate.querySelector("button")?.focus();
+	}
+
+	for (const button of document.querySelectorAll("[data-warning-accept]")) {
+		button.addEventListener("click", () => {
+			document.documentElement.classList.add("has-consent");
+			document.documentElement.classList.remove("age-gate-open");
+
+			try {
+				localStorage.setItem(CONSENT_KEY, "1");
+			} catch (error) {
+				/* The answer will be asked for again on the next visit. */
+			}
+		});
+	}
+}
+
 /** The embed mounts after this script runs, so wait for it to appear. */
 function watchForComments() {
 	const section = document.querySelector(".article-comments");
@@ -111,3 +139,4 @@ if (!storedTheme()) {
 }
 
 watchForComments();
+watchForConsent();

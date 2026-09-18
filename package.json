@@ -90,6 +90,28 @@
 				"default": true,
 				"description": "Show an estimated reading time next to the date."
 			},
+			"sensitive_content": {
+				"type": "boolean",
+				"default": true,
+				"group": "post",
+				"description": "Blur posts tagged with the internal tag #sensitive until the reader chooses to continue."
+			},
+			"sensitive_text": {
+				"type": "text",
+				"default": "",
+				"group": "post",
+				"description": "The warning shown over a sensitive post. Leave empty for the default wording."
+			},
+			"age_gate": {
+				"type": "boolean",
+				"default": false,
+				"description": "Ask every first-time visitor to confirm they are over 18 before the site is shown."
+			},
+			"age_gate_text": {
+				"type": "text",
+				"default": "",
+				"description": "The wording of the age gate. Leave empty for the default."
+			},
 			"footer_note": {
 				"type": "text",
 				"default": "",

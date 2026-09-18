@@ -1,0 +1,24 @@
+{{!--
+    Optional site-wide gate, shown on the first visit when "Age gate" is on.
+    It is a courtesy notice, not access control — see the README.
+--}}
+{{#if @custom.age_gate}}
+    <div class="age-gate" data-age-gate role="alertdialog" aria-labelledby="age-gate-title" aria-modal="true">
+        <div class="age-gate__panel">
+            <p class="warning__mark" aria-hidden="true">&mdash;</p>
+            <h2 class="warning__title" id="age-gate-title">{{@site.title}}</h2>
+            <p class="warning__text">
+                {{#if @custom.age_gate_text}}
+                    {{@custom.age_gate_text}}
+                {{else}}
+                    {{t "This site publishes work intended for an adult audience."}}
+                {{/if}}
+            </p>
+            <div class="warning__actions">
+                <button class="button" type="button" data-warning-accept>{{t "I am over 18"}}</button>
+                <a class="button button--ghost" href="https://www.google.com/">{{t "Take me back"}}</a>
+            </div>
+            <p class="warning__note">{{t "Your choice is remembered on this device."}}</p>
+        </div>
+    </div>
+{{/if}}

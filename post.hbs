@@ -1,7 +1,13 @@
 {{!< default}}
 
 {{#post}}
-<article class="article {{post_class}}">
+{{#has tag="#sensitive"}}
+    {{#if @custom.sensitive_content}}
+        {{> "content-warning"}}
+    {{/if}}
+{{/has}}
+
+<article class="article {{post_class}}{{#has tag="#sensitive"}}{{#if @custom.sensitive_content}} article--sensitive{{/if}}{{/has}}">
 
     <header class="article__header">
         {{> "post-meta" show_author=true}}

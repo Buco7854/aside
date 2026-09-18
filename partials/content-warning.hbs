@@ -1,0 +1,23 @@
+{{!--
+    Shown over a post tagged with an internal #sensitive tag, until the reader
+    chooses to continue. The article is still in the page, blurred and inert, so
+    nothing renders twice and the browser back button behaves normally.
+--}}
+<aside class="warning" data-content-warning role="alertdialog" aria-labelledby="warning-title">
+    <div class="warning__panel">
+        <p class="warning__mark" aria-hidden="true">&mdash;</p>
+        <h2 class="warning__title" id="warning-title">{{t "Sensitive content"}}</h2>
+        <p class="warning__text">
+            {{#if @custom.sensitive_text}}
+                {{@custom.sensitive_text}}
+            {{else}}
+                {{t "This post contains images or descriptions some readers will find distressing."}}
+            {{/if}}
+        </p>
+        <div class="warning__actions">
+            <button class="button" type="button" data-warning-accept>{{t "Show the post"}}</button>
+            <a class="button button--ghost" href="{{@site.url}}">{{t "Take me back"}}</a>
+        </div>
+        <p class="warning__note">{{t "Your choice is remembered on this device."}}</p>
+    </div>
+</aside>

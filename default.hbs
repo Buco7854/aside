@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     {{!-- Fonts are self-hosted, so preload the two faces used above the fold --}}
+    {{#if @custom.age_gate}}<meta name="rating" content="adult" />{{/if}}
+
     <link rel="preload" as="font" type="font/woff2" href="{{asset "fonts/fraunces-latin.woff2"}}" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="{{asset "fonts/inter-latin.woff2"}}" crossorigin />
     <link rel="preload" as="style" href="{{asset "built/screen.css"}}" />
@@ -21,6 +23,10 @@
                 var theme = localStorage.getItem("aside-theme");
                 if (theme === "light" || theme === "dark") {
                     document.documentElement.classList.add(theme);
+                }
+                // A reader who has already consented should never see a blur.
+                if (localStorage.getItem("aside-consent") === "1") {
+                    document.documentElement.classList.add("has-consent");
                 }
             } catch (e) {
                 /* Storage can be unavailable; fall back to the OS preference. */
@@ -44,6 +50,8 @@
     </main>
 
     {{> "site-footer"}}
+
+    {{> "age-gate"}}
 
     <script src="{{asset "built/theme.js"}}" defer></script>
 

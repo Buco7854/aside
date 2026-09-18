@@ -77,6 +77,31 @@ Pages have the same flag, but nothing lists pages by date, so it has no effect
 there — a featured page is only meaningful if you query it yourself, e.g.
 `{{#get "pages" filter="featured:true"}}`.
 
+## Content warnings and the age gate
+
+Two separate things, both opt-in, and both **courtesy notices rather than access
+control** — the post is in the page either way, so anyone determined can read
+the HTML. For genuine gating, make the post members-only in Ghost.
+
+**Per-post warning.** Add the internal tag `#sensitive` to a post (internal tags
+start with `#`, stay hidden from readers, and are what Ghost provides for exactly
+this kind of theme logic). The post then shows a panel above the article, with
+its feature image and body blurred and click-blocked until the reader chooses to
+continue. Title, date and public tags stay readable, so nobody has to guess what
+they are opening. In feeds and archives the card is labelled *Sensitive* and its
+image is veiled.
+
+Change the wording under **Sensitive content warning** in theme settings, or turn
+the whole behaviour off there.
+
+**Site-wide age gate.** Turn on **Age gate** and every first-time visitor gets a
+full-page confirmation before they see anything, with your own wording. While it
+is on, the theme also emits `<meta name="rating" content="adult">` for crawlers
+and parental filters.
+
+Both remember the answer in `localStorage` under `aside-consent`, and one answer
+covers both — a reader who has confirmed their age is not asked again per post.
+
 ## Theme settings
 
 Editable in Ghost Admin → Design → Site-wide, no code needed:
@@ -86,6 +111,8 @@ Editable in Ghost Admin → Design → Site-wide, no code needed:
 | Homepage header     | Statement / Compact / Hidden     | Statement      |
 | Lead story          | Newest post / Featured post / Off | Newest post   |
 | Show topics         | on / off                         | on             |
+| Sensitive content warning | on / off                   | on             |
+| Age gate            | on / off                         | off            |
 | Title font          | Elegant serif / Modern sans-serif| Elegant serif  |
 | Show reading time   | on / off                         | on             |
 | Footer note         | free text                        | empty          |

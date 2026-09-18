@@ -2,7 +2,7 @@
     A post in the feed. Pass `lead=true` for the larger, image-led slot:
     {{> "post-card" lead=true}}
 --}}
-<article class="post-card{{#if lead}} post-card--lead{{/if}}{{#unless feature_image}} post-card--no-image{{/unless}}">
+<article class="post-card{{#if lead}} post-card--lead{{/if}}{{#unless feature_image}} post-card--no-image{{/unless}}{{#has tag="#sensitive"}}{{#if @custom.sensitive_content}} post-card--sensitive{{/if}}{{/has}}">
 
     {{#if lead}}
         {{#if feature_image}}
@@ -26,6 +26,11 @@
         <h3 class="post-card__title">
             <a href="{{url}}">{{title}}</a>
             {{#if featured}}<span class="post-card__badge">{{t "Featured"}}</span>{{/if}}
+            {{#has tag="#sensitive"}}
+                {{#if @custom.sensitive_content}}
+                    <span class="post-card__badge post-card__badge--warning">{{t "Sensitive"}}</span>
+                {{/if}}
+            {{/has}}
             {{#unless published_at}}<span class="post-card__badge">{{t "Draft"}}</span>{{/unless}}
         </h3>
 
