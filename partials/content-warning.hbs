@@ -1,7 +1,10 @@
 {{!--
     An editorial content note rather than an alert box: a rule, a small label,
-    a line of explanation, and one quiet action. What it hides depends on the
-    "Sensitive content" setting — images only, or the whole post.
+    a line of explanation, and one quiet action. What it veils depends on the
+    "Sensitive content" setting — pictures only, or the writing as well.
+
+    Used by both post.hbs and page.hbs: pages take tags too, so a page can be
+    tagged #sensitive in exactly the same way.
 --}}
 <aside class="content-note" data-content-warning>
     <hr class="rule" />
@@ -11,9 +14,9 @@
             {{@custom.sensitive_text}}
         {{else}}
             {{#match @custom.sensitive_content "Whole post"}}
-                {{t "This post may be difficult to read."}}
+                {{t "This piece covers difficult material."}}
             {{else}}
-                {{t "The images in this post may be difficult to look at."}}
+                {{t "This piece covers difficult material. Its pictures stay hidden until you ask for them."}}
             {{/match}}
         {{/if}}
     </p>

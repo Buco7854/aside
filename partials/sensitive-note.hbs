@@ -1,0 +1,15 @@
+{{!--
+    Renders the content note when the entry carries the internal #sensitive tag
+    and the setting is not Off. One line to add the behaviour to any template,
+    including custom ones:
+
+        {{> "sensitive-note"}}
+
+    Pair it with `article--sensitive` on the element you want veiled — see
+    post.hbs for the full pattern.
+--}}
+{{#has tag="#sensitive"}}
+    {{^match @custom.sensitive_content "Off"}}
+        {{> "content-warning"}}
+    {{/match}}
+{{/has}}

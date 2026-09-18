@@ -162,3 +162,79 @@ if (!storedTheme()) {
 
 watchForComments();
 watchForConsent();
+watchForDrawer();
+
+/**
+ * The mobile drawer.
+ *
+ * Wide screens never reach this: the panel is `display: contents` there, and
+ * the button that opens it is hidden.
+ */
+function watchForDrawer() {
+	const toggle = document.querySelector("[data-drawer-toggle]");
+	const drawer = document.querySelector("[data-drawer]");
+	if (!toggle || !drawer) return;
+
+	const focusable = () =>
+		[...drawer.querySelectorAll("a[href], button:not([disabled]), input, [tabindex]:not([tabindex='-1'])")];
+
+	const setOpen = (open) => {
+		root.classList.toggle("drawer-open", open);
+		toggle.setAttribute("aria-expanded", String(open));
+
+		if (open) {
+			// Focus the panel, not its first link: assistive technology lands in
+			// the right place and no focus ring appears on something untouched.
+			// Deferred a frame, because the panel is still mid-transition here.
+			requestAnimationFrame(() => drawer.focus({ preventScroll: true }));
+		} else if (drawer.contains(document.activeElement)) {
+			toggle.focus({ preventScroll: true });
+		}
+	};
+
+	toggle.addEventListener("click", () => setOpen(!root.classList.contains("drawer-open")));
+
+	for (const closer of document.querySelectorAll("[data-drawer-close]")) {
+		closer.addEventListener("click", () => setOpen(false));
+	}
+
+	// Following a link should leave the drawer shut behind you.
+	drawer.addEventListener("click", (event) => {
+		if (event.target.closest("a")) root.classList.remove("drawer-open");
+	});
+
+	document.addEventListener("keydown", (event) => {
+		if (!root.classList.contains("drawer-open")) return;
+
+		if (event.key === "Escape") {
+			setOpen(false);
+			toggle.focus({ preventScroll: true });
+			return;
+		}
+
+		// Keep Tab inside the panel while it covers the page.
+		if (event.key !== "Tab") return;
+
+		const items = [toggle, ...focusable()];
+		if (items.length < 2) return;
+
+		const first = items[0];
+		const last = items[items.length - 1];
+
+		if (event.shiftKey && document.activeElement === first) {
+			event.preventDefault();
+			last.focus();
+		} else if (!event.shiftKey && document.activeElement === last) {
+			event.preventDefault();
+			first.focus();
+		} else if (!drawer.contains(document.activeElement) && document.activeElement !== toggle) {
+			event.preventDefault();
+			first.focus();
+		}
+	});
+
+	// A phone rotated to landscape can cross the breakpoint with the drawer open.
+	window.matchMedia("(min-width: 40.0625rem)").addEventListener("change", (event) => {
+		if (event.matches) setOpen(false);
+	});
+}

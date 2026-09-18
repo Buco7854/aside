@@ -1,4 +1,10 @@
-{{!-- Site chrome: wordmark, navigation, search, theme switch, member actions --}}
+{{!--
+    Site chrome: wordmark, navigation, search, theme switch, member actions.
+
+    The navigation and tools live in one element. On a wide screen it is
+    `display: contents`, so they sit in the header row exactly as if they were
+    written there; on a phone the same element becomes a drawer.
+--}}
 <header class="site-header">
     <div class="container site-header__inner">
 
@@ -11,30 +17,46 @@
             {{/if}}
         </a>
 
-        <nav class="site-nav" aria-label="{{t "Main navigation"}}">
-            {{navigation}}
-        </nav>
+        <button
+            class="icon-button site-burger"
+            type="button"
+            data-drawer-toggle
+            aria-expanded="false"
+            aria-controls="site-drawer"
+            aria-label="{{t "Menu"}}"
+        >
+            <span class="site-burger__icon site-burger__icon--open">{{> "icons/menu"}}</span>
+            <span class="site-burger__icon site-burger__icon--close">{{> "icons/close"}}</span>
+        </button>
 
-        <div class="site-tools">
-            <button class="icon-button" type="button" aria-label="{{t "Search this site"}}" data-ghost-search>
-                {{> "icons/search"}}
-            </button>
+        <div class="site-drawer" id="site-drawer" data-drawer tabindex="-1">
+            <nav class="site-nav" aria-label="{{t "Main navigation"}}">
+                {{navigation}}
+            </nav>
 
-            <button class="icon-button theme-toggle" type="button" aria-label="{{t "Switch colour theme"}}" data-theme-toggle>
-                <span class="theme-toggle__icon theme-toggle__icon--to-dark">{{> "icons/moon"}}</span>
-                <span class="theme-toggle__icon theme-toggle__icon--to-light">{{> "icons/sun"}}</span>
-            </button>
+            <div class="site-tools">
+                <button class="icon-button" type="button" aria-label="{{t "Search this site"}}" data-ghost-search>
+                    {{> "icons/search"}}
+                </button>
 
-            {{#if @site.members_enabled}}
-                {{#unless @member}}
-                    {{#unless @site.members_invite_only}}
-                        <a class="button button--small" href="#/portal/signup">{{t "Subscribe"}}</a>
+                <button class="icon-button theme-toggle" type="button" aria-label="{{t "Switch colour theme"}}" data-theme-toggle>
+                    <span class="theme-toggle__icon theme-toggle__icon--to-dark">{{> "icons/moon"}}</span>
+                    <span class="theme-toggle__icon theme-toggle__icon--to-light">{{> "icons/sun"}}</span>
+                </button>
+
+                {{#if @site.members_enabled}}
+                    {{#unless @member}}
+                        {{#unless @site.members_invite_only}}
+                            <a class="button button--small" href="#/portal/signup">{{t "Subscribe"}}</a>
+                        {{/unless}}
+                    {{else}}
+                        <a class="button button--ghost button--small" href="#/portal/account">{{t "Account"}}</a>
                     {{/unless}}
-                {{else}}
-                    <a class="button button--ghost button--small" href="#/portal/account">{{t "Account"}}</a>
-                {{/unless}}
-            {{/if}}
+                {{/if}}
+            </div>
         </div>
+
+        <div class="site-scrim" data-drawer-close hidden></div>
 
     </div>
 </header>

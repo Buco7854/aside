@@ -9,6 +9,8 @@ dark, and the em dash as a house motif. Built for sites where the writing is the
 
 - **Light and dark** from one palette, written with `light-dark()` — no separate dark stylesheet to
   maintain. Follows the operating system until a visitor picks a side.
+- **A real drawer on phones**: navigation, search, theme and member actions slide in from the side,
+  with Escape, a scrim, focus held inside the panel, and no scrolling behind it.
 - **Self-hosted type**: Fraunces and Inter ship with the theme, so there are no third-party font
   requests. Ghost's own font settings (Design → Typography) override them when set.
 - **Follows your brand colour** from Ghost Admin → Design → Brand, with a terracotta default.
@@ -83,12 +85,13 @@ Two separate things, both opt-in, and both **courtesy notices rather than access
 control** — the post is in the page either way, so anyone determined can read the
 HTML. For genuine gating, make the post members-only in Ghost.
 
-**Per-post content note.** Add the internal tag `#sensitive` to a post (internal
-tags start with `#` and stay hidden from readers — they are what Ghost provides
-for theme logic like this). The post then carries a short note above the title:
+**Content note.** Add the internal tag `#sensitive` to a post **or a page** —
+pages take tags too — and it carries a short note above the title (internal tags
+start with `#` and stay hidden from readers; they are what Ghost provides for
+theme logic like this):
 
 > **CONTENT NOTE**
-> *The images in this post may be difficult to look at.*
+> *This piece covers difficult material. Its pictures stay hidden until you ask for them.*
 > Show the images →
 
 What the note holds back depends on the **Sensitive content** setting:
@@ -101,7 +104,18 @@ What the note holds back depends on the **Sensitive content** setting:
 
 The title, byline and public tags always stay readable, so nobody has to guess
 what they are opening, and cards in feeds are labelled *Sensitive* with a veiled
-image. Reword the note under **Sensitive content note** in theme settings.
+image. Reword the note under **Sensitive content note** in theme settings — the
+default wording deliberately says *material* rather than *images*, since a piece
+can be hard going for reasons that have nothing to do with pictures.
+
+Custom page templates can opt in with one line:
+
+```hbs
+{{> "sensitive-note"}}
+```
+
+Pair it with `article--sensitive` on whatever you want veiled — `post.hbs` shows
+the full pattern.
 
 **Site-wide age gate.** Turn on **Age gate** and every first-time visitor is
 asked to confirm their age before they see anything, in your own words. While it

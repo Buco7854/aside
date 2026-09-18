@@ -1,7 +1,10 @@
 {{!< default}}
 
 {{#post}}
-<article class="article {{post_class}}">
+{{!-- Pages take tags too, so a page can carry the internal #sensitive tag --}}
+{{> "sensitive-note"}}
+
+<article class="article {{post_class}}{{#has tag="#sensitive"}}{{^match @custom.sensitive_content "Off"}} article--sensitive{{#match @custom.sensitive_content "Whole post"}} article--sensitive-all{{/match}}{{/match}}{{/has}}">
 
     {{#match @page.show_title_and_feature_image}}
         <header class="article__header">
