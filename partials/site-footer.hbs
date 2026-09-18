@@ -1,0 +1,42 @@
+<footer class="site-footer">
+    <div class="container">
+        <hr class="rule" />
+
+        <div class="site-footer__grid">
+            <div class="site-footer__brand">
+                <a class="wordmark" href="{{@site.url}}">
+                    <span class="wordmark__mark" aria-hidden="true">&mdash;</span>
+                    <span class="wordmark__name">{{@site.title}}</span>
+                </a>
+                {{#if @site.description}}
+                    <p class="site-footer__tagline">{{@site.description}}</p>
+                {{/if}}
+            </div>
+
+            <nav class="site-footer__nav" aria-label="{{t "Footer navigation"}}">
+                <h2 class="site-footer__heading">{{t "Read"}}</h2>
+                <ul class="site-footer__list">
+                    {{#foreach navigation}}
+                        <li><a href="{{url absolute="true"}}">{{label}}</a></li>
+                    {{/foreach}}
+                </ul>
+            </nav>
+
+            <nav class="site-footer__nav" aria-label="{{t "Elsewhere"}}">
+                <h2 class="site-footer__heading">{{t "Elsewhere"}}</h2>
+                {{navigation type="secondary"}}
+                <ul class="site-footer__list">
+                    <li>
+                        <a href="{{@site.url}}/rss/">{{t "RSS feed"}} {{> "icons/rss"}}</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <p class="site-footer__legal">
+            <span>&copy; {{date format="YYYY"}} {{@site.title}}</span>
+            {{#if @custom.footer_note}}<span>{{@custom.footer_note}}</span>{{/if}}
+            <span>{{t "Published with"}} <a href="https://ghost.org/">Ghost</a></span>
+        </p>
+    </div>
+</footer>

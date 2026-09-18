@@ -1,0 +1,17 @@
+{{!--
+    Author — date — reading time.
+
+    The author is opt-in so that small cards stay on one line:
+    {{> "post-meta" show_author=true}}
+--}}
+<p class="post-meta">
+    {{#if show_author}}
+        {{#if authors}}
+            <span class="post-meta__author">{{authors separator=", " autolink="true"}}</span>
+        {{/if}}
+    {{/if}}
+    <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMMM YYYY"}}</time>
+    {{#if @custom.show_reading_time}}
+        <span>{{reading_time}}</span>
+    {{/if}}
+</p>

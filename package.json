@@ -1,0 +1,93 @@
+{
+	"name": "aside",
+	"description": "A writing-first Ghost theme: editorial typography, light and dark, built for people whose words are the product.",
+	"version": "1.0.0",
+	"engines": {
+		"ghost": ">=5.0.0",
+		"node": ">=22.12.0"
+	},
+	"license": "MIT",
+	"author": {
+		"name": "Your Name",
+		"email": "hello@example.com"
+	},
+	"keywords": [
+		"ghost",
+		"theme",
+		"ghost-theme",
+		"blog",
+		"editorial"
+	],
+	"gpm": {
+		"type": "theme",
+		"categories": ["Minimal", "Blog"]
+	},
+	"screenshots": {
+		"desktop": "assets/screenshot-desktop.jpg",
+		"mobile": "assets/screenshot-mobile.jpg"
+	},
+	"scripts": {
+		"build": "npm run build:css && npm run build:js",
+		"build:css": "postcss assets/css/screen.css -o assets/built/screen.css",
+		"build:js": "esbuild assets/js/theme.js --bundle --minify --outfile=assets/built/theme.js",
+		"dev": "npm run build && npm-run-all --parallel watch:*",
+		"watch:css": "postcss assets/css/screen.css -o assets/built/screen.css --watch",
+		"watch:js": "esbuild assets/js/theme.js --bundle --minify --outfile=assets/built/theme.js --watch",
+		"zip": "npm run build && bestzip aside.zip assets/ partials/ locales/ *.hbs package.json LICENSE README.md",
+		"test": "npm run build && gscan .",
+		"test:ci": "npm run build && gscan --fatal --verbose ."
+	},
+	"devDependencies": {
+		"autoprefixer": "10.4.21",
+		"bestzip": "2.2.1",
+		"cssnano": "7.1.1",
+		"esbuild": "0.25.10",
+		"gscan": "6.6.1",
+		"npm-run-all": "4.1.5",
+		"postcss": "8.5.6",
+		"postcss-cli": "11.0.1",
+		"postcss-import": "16.1.1"
+	},
+	"browserslist": ["defaults"],
+	"config": {
+		"posts_per_page": 12,
+		"image_sizes": {
+			"xxs": { "width": 30 },
+			"xs": { "width": 100 },
+			"s": { "width": 400 },
+			"m": { "width": 750 },
+			"l": { "width": 1200 },
+			"xl": { "width": 2000 }
+		},
+		"card_assets": true,
+		"custom": {
+			"homepage_header": {
+				"type": "select",
+				"options": ["Statement", "Compact", "Hidden"],
+				"default": "Statement",
+				"group": "homepage"
+			},
+			"lead_story": {
+				"type": "boolean",
+				"default": true,
+				"group": "homepage",
+				"description": "Give the newest post a larger, image-led slot at the top of the feed."
+			},
+			"title_font": {
+				"type": "select",
+				"options": ["Elegant serif", "Modern sans-serif"],
+				"default": "Elegant serif"
+			},
+			"show_reading_time": {
+				"type": "boolean",
+				"default": true,
+				"description": "Show an estimated reading time next to the date."
+			},
+			"footer_note": {
+				"type": "text",
+				"default": "",
+				"description": "A short line of text in the footer, beside the copyright."
+			}
+		}
+	}
+}

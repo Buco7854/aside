@@ -1,0 +1,28 @@
+/*
+  Self-hosted variable fonts (SIL Open Font License, see assets/fonts/OFL-*.txt).
+  Serving them from the theme keeps the site free of third-party font requests.
+*/
+
+@font-face {
+	font-family: "Fraunces";
+	src: url("../fonts/fraunces-latin.woff2") format("woff2-variations");
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Fraunces";
+	src: url("../fonts/fraunces-italic-latin.woff2") format("woff2-variations");
+	font-weight: 400 700;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: url("../fonts/inter-latin.woff2") format("woff2-variations");
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}

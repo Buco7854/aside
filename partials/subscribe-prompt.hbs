@@ -1,0 +1,18 @@
+{{!-- Portal signup. Only rendered when memberships are switched on in Ghost. --}}
+{{#if @site.members_enabled}}
+    {{#unless @member}}
+        <aside class="prompt">
+            <h2>{{t "Get new posts by email"}}</h2>
+            <p>{{#if @site.description}}{{@site.description}}{{else}}{{t "No spam. Unsubscribe any time."}}{{/if}}</p>
+            {{#unless @site.members_invite_only}}
+                <form data-members-form="signup">
+                    <label class="sr-only" for="subscribe-email">{{t "Your email address"}}</label>
+                    <input id="subscribe-email" type="email" name="email" data-members-email placeholder="you@example.com" required />
+                    <button class="button" type="submit">{{t "Subscribe"}}</button>
+                </form>
+            {{else}}
+                <a class="button" href="#/portal/signin">{{t "Sign in"}}</a>
+            {{/unless}}
+        </aside>
+    {{/unless}}
+{{/if}}

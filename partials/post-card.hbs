@@ -1,0 +1,45 @@
+{{!--
+    A post in the feed. Pass `lead=true` for the larger, image-led slot:
+    {{> "post-card" lead=true}}
+--}}
+<article class="post-card{{#if lead}} post-card--lead{{/if}}{{#unless feature_image}} post-card--no-image{{/unless}}">
+
+    {{#if lead}}
+        {{#if feature_image}}
+            <a class="post-card__media" href="{{url}}" tabindex="-1" aria-hidden="true">
+                <img
+                    srcset="{{img_url feature_image size="s"}} 400w,
+                            {{img_url feature_image size="m"}} 750w,
+                            {{img_url feature_image size="l"}} 1200w"
+                    sizes="(min-width: 60rem) 45vw, 92vw"
+                    src="{{img_url feature_image size="l"}}"
+                    alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                    loading="eager"
+                />
+            </a>
+        {{/if}}
+    {{/if}}
+
+    <div class="post-card__body">
+        {{> "post-meta" show_author=lead}}
+
+        <h3 class="post-card__title">
+            <a href="{{url}}">{{title}}</a>
+            {{#if featured}}<span class="post-card__badge">{{t "Featured"}}</span>{{/if}}
+            {{#unless published_at}}<span class="post-card__badge">{{t "Draft"}}</span>{{/unless}}
+        </h3>
+
+        {{#if excerpt}}
+            <p class="post-card__excerpt">{{excerpt words="28"}}</p>
+        {{/if}}
+
+        {{#if tags}}
+            <ul class="tag-list">
+                {{#foreach tags limit="3"}}
+                    <li><a href="{{url}}">{{name}}</a></li>
+                {{/foreach}}
+            </ul>
+        {{/if}}
+    </div>
+
+</article>

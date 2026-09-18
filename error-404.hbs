@@ -1,0 +1,13 @@
+{{!< default}}
+
+<div class="container container--prose">
+    <section class="notice">
+        <p class="notice__mark" aria-hidden="true">&mdash;</p>
+        <h1>{{statusCode}}</h1>
+        <p class="lede">{{t "This page trailed off mid-sentence. It may have moved, or it may never have existed."}}</p>
+        <div class="notice__actions">
+            <a class="button" href="{{@site.url}}">{{t "Back home"}} {{> "icons/arrow"}}</a>
+            <button class="button button--ghost" type="button" data-ghost-search>{{t "Search this site"}}</button>
+        </div>
+    </section>
+</div>

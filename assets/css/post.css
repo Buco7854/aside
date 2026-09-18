@@ -1,0 +1,265 @@
+/*
+  Article layout and the typography of published content.
+
+  The article is a grid rather than a fixed-width container so that Koenig's
+  wide and full-width cards can break out of the reading measure:
+
+    full  |  wide  |      main      |  wide  |  full
+*/
+
+.article {
+	display: grid;
+	grid-template-columns:
+		[full-start] minmax(var(--gutter), 1fr)
+		[wide-start] minmax(0, 6rem)
+		[main-start] min(var(--content-width), 100% - var(--gutter) * 2)
+		[main-end] minmax(0, 6rem)
+		[wide-end] minmax(var(--gutter), 1fr)
+		[full-end];
+}
+
+.article > *,
+.article .content > * {
+	grid-column: main;
+}
+
+.article__header {
+	display: grid;
+	gap: var(--space-3);
+	margin-bottom: var(--space-8);
+}
+
+.article__title {
+	font-size: var(--text-3xl);
+}
+
+.article__excerpt {
+	max-width: 52ch;
+	margin: 0;
+}
+
+.article__feature-image {
+	grid-column: wide;
+	margin-bottom: var(--space-10);
+}
+
+.article__feature-image img {
+	width: 100%;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+}
+
+.article__feature-image figcaption {
+	margin-top: var(--space-3);
+	color: var(--color-muted);
+	font-size: var(--text-xs);
+	text-align: center;
+}
+
+.article__footer {
+	display: grid;
+	gap: var(--space-4);
+	margin-top: var(--space-12);
+}
+
+.article__updated {
+	color: var(--color-muted);
+	font-size: var(--text-xs);
+	font-style: italic;
+}
+
+/* Content typography */
+.content {
+	display: contents;
+	font-size: var(--text-lg);
+	line-height: var(--leading-relaxed);
+}
+
+.content > * + * {
+	margin-top: 1.5em;
+}
+
+.content > h2,
+.content > h3,
+.content > h4 {
+	margin-top: 2.25em;
+	scroll-margin-top: 5rem;
+}
+
+.content > h2 {
+	font-size: var(--text-2xl);
+}
+
+.content > h3 {
+	font-size: var(--text-xl);
+}
+
+.content > h4 {
+	font-size: var(--text-lg);
+	font-weight: 700;
+}
+
+.content > h2 + *,
+.content > h3 + *,
+.content > h4 + * {
+	margin-top: 0.75em;
+}
+
+.content a {
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.18em;
+}
+
+.content ul,
+.content ol {
+	padding-inline-start: 1.25em;
+}
+
+.content li + li {
+	margin-top: 0.4em;
+}
+
+.content li::marker {
+	color: var(--color-muted);
+}
+
+.content blockquote {
+	padding-inline-start: 1.25em;
+	border-inline-start: 2px solid var(--color-brand);
+	color: var(--color-heading);
+	font-family: var(--font-display);
+	font-size: 1.1em;
+	font-style: italic;
+}
+
+.content :not(pre) > code {
+	padding: 0.15em 0.35em;
+	border-radius: var(--radius);
+	background: var(--color-bg-subtle);
+	color: var(--color-brand);
+	font-size: 0.85em;
+}
+
+.content pre {
+	padding: var(--space-5);
+	overflow-x: auto;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	background: var(--color-bg-subtle);
+	font-size: var(--text-sm);
+	line-height: var(--leading-normal);
+	tab-size: 2;
+}
+
+.content table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: var(--text-sm);
+}
+
+.content th,
+.content td {
+	padding: var(--space-2) var(--space-3);
+	border-bottom: 1px solid var(--color-border);
+	text-align: start;
+}
+
+.content th {
+	color: var(--color-heading);
+	font-weight: 600;
+}
+
+/* A horizontal rule reads as three em dashes rather than a line. */
+.content hr {
+	margin-block: 2.5em;
+	border: none;
+	color: var(--color-muted);
+	text-align: center;
+}
+
+.content hr::before {
+	content: "———";
+	letter-spacing: -0.1em;
+}
+
+/* Koenig cards */
+.content :is(img, video, iframe) {
+	border-radius: var(--radius-lg);
+}
+
+.content figcaption {
+	margin-top: var(--space-3);
+	color: var(--color-muted);
+	font-family: var(--font-body);
+	font-size: var(--text-sm);
+	text-align: center;
+}
+
+.content .kg-card {
+	margin-top: 2em;
+}
+
+.content .kg-width-wide {
+	grid-column: wide;
+}
+
+.content .kg-width-full {
+	grid-column: full;
+}
+
+.content .kg-width-full img {
+	width: 100%;
+	border-radius: 0;
+}
+
+.content .kg-embed-card,
+.content .kg-image-card,
+.content .kg-gallery-card {
+	display: grid;
+	justify-items: center;
+}
+
+.content .kg-callout-card {
+	padding: var(--space-5);
+	border-radius: var(--radius-lg);
+}
+
+.content .kg-blockquote-alt {
+	font-family: var(--font-display);
+	font-style: italic;
+}
+
+/* Read next */
+.read-next {
+	grid-column: main;
+	margin-top: var(--space-16);
+}
+
+.read-next__title {
+	margin-block: var(--space-8) var(--space-6);
+	font-size: var(--text-2xl);
+}
+
+.article-comments {
+	grid-column: main;
+	margin-top: var(--space-16);
+	padding-top: var(--space-8);
+	border-top: 1px solid var(--color-border);
+}
+
+/*
+  Ghost renders comments in an iframe whose document has a transparent
+  background, so the iframe's own canvas shows through — white, unless the
+  embedder paints it. Match the page instead.
+*/
+.article-comments iframe {
+	background-color: var(--color-bg);
+	color-scheme: inherit;
+}
+
+.article-prompt {
+	grid-column: main;
+	margin-top: var(--space-12);
+}
+

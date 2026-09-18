@@ -1,0 +1,20 @@
+{{!< default}}
+
+<div class="container container--prose">
+    <section class="notice">
+        <p class="notice__mark" aria-hidden="true">&mdash;</p>
+        <h1>{{statusCode}}</h1>
+        <p class="lede">{{message}}</p>
+        <div class="notice__actions">
+            <a class="button" href="{{@site.url}}">{{t "Back home"}} {{> "icons/arrow"}}</a>
+        </div>
+    </section>
+
+    {{#if errorDetails}}
+        <ul class="error-details">
+            {{#foreach errorDetails}}
+                <li><em>{{{this.message}}}</em></li>
+            {{/foreach}}
+        </ul>
+    {{/if}}
+</div>

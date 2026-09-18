@@ -1,0 +1,50 @@
+name: Deploy theme
+
+# Pushes the theme to a Ghost site through the Admin API on every push to main.
+#
+# Before this runs, add two repository secrets under
+# Settings → Secrets and variables → Actions, copied from
+# Ghost Admin → Integrations → Add custom integration:
+#
+#   GHOST_ADMIN_API_URL   e.g. https://example.com
+#   GHOST_ADMIN_API_KEY   e.g. 6238a...:2e0f6...
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - run: npm ci
+
+      # assets/built/* is committed, but rebuild so a deploy always ships the
+      # compiled output that matches the source in this commit.
+      - run: npm run build
+
+      - name: Check the theme with gscan
+        run: npx gscan --fatal --verbose .
+
+      - name: Deploy to Ghost
+        uses: TryGhost/action-deploy-theme@v2
+        with:
+          api-url: ${{ secrets.GHOST_ADMIN_API_URL }}
+          api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
+          exclude: "assets/css/* assets/js/* .github/* postcss.config.cjs package-lock.json"

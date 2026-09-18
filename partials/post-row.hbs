@@ -1,0 +1,28 @@
+{{!-- A compact row for archives: date on the left, post on the right --}}
+<article class="post-row">
+    <time class="post-row__date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM"}}</time>
+
+    <div class="post-row__body">
+        <h3 class="post-row__title">
+            <a href="{{url}}">{{title}}</a>
+            {{#if featured}}<span class="post-card__badge">{{t "Featured"}}</span>{{/if}}
+        </h3>
+
+        {{#if excerpt}}
+            <p class="post-row__excerpt">{{excerpt words="24"}}</p>
+        {{/if}}
+
+        <div class="post-row__footer">
+            {{#if tags}}
+                <ul class="tag-list">
+                    {{#foreach tags limit="3"}}
+                        <li><a href="{{url}}">{{name}}</a></li>
+                    {{/foreach}}
+                </ul>
+            {{else}}
+                <span></span>
+            {{/if}}
+            {{#if @custom.show_reading_time}}<span>{{reading_time}}</span>{{/if}}
+        </div>
+    </div>
+</article>

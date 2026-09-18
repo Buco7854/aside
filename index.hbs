@@ -1,0 +1,61 @@
+{{!< default}}
+
+{{!-- The tag above means: insert everything in this file into the {body} of
+the default.hbs template. --}}
+
+<div class="container">
+
+    {{#is "home"}}
+        {{^match @custom.homepage_header "Hidden"}}
+            <section class="home-intro{{#match @custom.homepage_header "Compact"}} home-intro--compact{{/match}}">
+                <p class="eyebrow">{{@site.title}}</p>
+                {{#if @site.description}}
+                    <h1 class="home-intro__title">
+                        <span class="home-intro__mark" aria-hidden="true">&mdash;</span>{{@site.description}}
+                    </h1>
+                {{/if}}
+                <div class="home-intro__actions">
+                    {{#if @site.members_enabled}}
+                        {{#unless @member}}
+                            <a class="button" href="#/portal/signup">{{t "Subscribe"}} {{> "icons/arrow"}}</a>
+                        {{/unless}}
+                    {{/if}}
+                    <a class="button button--ghost" href="{{@site.url}}/rss/">{{t "RSS feed"}}</a>
+                </div>
+            </section>
+
+            <hr class="rule" />
+        {{/match}}
+    {{/is}}
+
+    <section class="post-feed-section">
+        {{#if posts}}
+            <div class="post-feed">
+                {{#foreach posts}}
+                    {{#if @first}}
+                        {{#unless ../pagination.prev}}
+                            {{#if @custom.lead_story}}
+                                {{> "post-card" lead=true}}
+                            {{else}}
+                                {{> "post-card"}}
+                            {{/if}}
+                        {{else}}
+                            {{> "post-card"}}
+                        {{/unless}}
+                    {{else}}
+                        {{> "post-card"}}
+                    {{/if}}
+                {{/foreach}}
+            </div>
+        {{else}}
+            <div class="notice">
+                <p class="notice__mark" aria-hidden="true">&mdash;</p>
+                <h1>{{t "Nothing published yet"}}</h1>
+                <p class="lede">{{t "The first post will appear here as soon as it goes out."}}</p>
+            </div>
+        {{/if}}
+    </section>
+
+    {{> "pagination"}}
+
+</div>

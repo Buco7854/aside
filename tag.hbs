@@ -1,0 +1,31 @@
+{{!< default}}
+
+{{#tag}}
+<div class="container container--prose">
+
+    <header class="archive-header">
+        <p class="eyebrow">{{t "Tag"}}</p>
+        <h1 class="archive-header__title">{{name}}</h1>
+        {{#if description}}
+            <p class="lede">{{description}}</p>
+        {{else}}
+            <p class="lede">{{plural ../pagination.total empty="No posts" singular="% post" plural="% posts"}}</p>
+        {{/if}}
+    </header>
+
+    {{#if feature_image}}
+        <figure class="archive-header__image">
+            <img src="{{img_url feature_image size="l"}}" alt="{{name}}" loading="lazy" />
+        </figure>
+    {{/if}}
+
+</div>
+{{/tag}}
+
+<div class="container container--prose">
+    {{#foreach posts}}
+        {{> "post-row"}}
+    {{/foreach}}
+
+    {{> "pagination"}}
+</div>

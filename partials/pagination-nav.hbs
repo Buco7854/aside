@@ -1,0 +1,15 @@
+<nav class="pagination" role="navigation" aria-label="{{t "Pagination"}}">
+    {{#if pagination.prev}}
+        <a class="button button--ghost button--small" href="{{page_url pagination.prev}}">{{t "Newer posts"}}</a>
+    {{else}}
+        <span class="pagination__spacer"></span>
+    {{/if}}
+
+    <span>{{t "Page"}} {{pagination.page}} {{t "of"}} {{pagination.pages}}</span>
+
+    {{#if pagination.next}}
+        <a class="button button--ghost button--small" href="{{page_url pagination.next}}">{{t "Older posts"}} {{> "icons/arrow"}}</a>
+    {{else}}
+        <span class="pagination__spacer"></span>
+    {{/if}}
+</nav>
